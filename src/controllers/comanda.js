@@ -13,7 +13,7 @@ module.exports = {
         let {mesa, ID, listProducts, price} = req.body;
 
         const comanda = await Comanda.create({
-            id_garcom: parseInt(ID),
+            id_user: parseInt(ID),
             valor_final: price,
             mesa: parseInt(mesa),
             data: new Date(),
@@ -33,13 +33,33 @@ module.exports = {
 
     //
     listComanda: async (req, res) => {
-        let { sort = "asc", offset = 0} = req.query;
+        let { sort = "asc", offset = 0, id_garcom} = req.query;
+        
+
+        const where = {situacao: 1}
+
+        if(id_garcom)where.id_garcom = id_garcom
 
         const listComandas = await Comanda.findAll({
             offset: parseInt(offset),
-            order: [["situacao", asc]],
-            where: {situacao: 0}
+            order: [["situacao", "asc"]],
+            include: [
+                {model: User, attributes: ["name"]}
+            ],
+            where
+
         })
+
+        for(const comanda of listComandas){
+
+            const pedidos = await ComandaProducts.findAll({
+                include: [
+                    {model: Product, attributes: ["nm_produto", "valor"]},
+                ],
+                where: {id_comanda: comanda.id_comanda}
+            })
+            comanda.dataValues.pedidos = pedidos
+        }
 
         res.json(listComandas);
     }

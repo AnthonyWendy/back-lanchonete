@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
+const Produto = require('./product');
 
 const modelSchema = db.define(
     "produtoscomanda", 
@@ -31,5 +32,5 @@ const modelSchema = db.define(
         freezeTableName: true,
     }
 );
-
+modelSchema.belongsTo(Produto, {foreignKey: "id_produto"});
 module.exports = modelSchema;

@@ -21,4 +21,3 @@ const modelSchema = db.define(
 );
 
 module.exports = modelSchema;
-anjdkfankjnfaksdn

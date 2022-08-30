@@ -137,4 +137,10 @@ router.post(
     Comanda.addComanda
 );
 
+router.get(
+    "/comanda/list",
+    Auth.private,
+    Comanda.listComanda
+)
+
 module.exports = router;
