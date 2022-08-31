@@ -143,4 +143,10 @@ router.get(
     Comanda.listComanda
 )
 
+router.get(
+    "/comanda/:id",
+    Auth.private,
+    Comanda.getComanda
+)
+
 module.exports = router;

@@ -62,5 +62,32 @@ module.exports = {
         }
 
         res.json(listComandas);
+    },
+
+    getComanda: async (req, res) => {
+        let {id} = req.params;
+
+        const comanda = await Comanda.findOne({
+            where: {id_comanda: id},
+            include: [
+                {model: User, attributes: ["name"]}
+            ]
+        })
+
+        if(!comanda){
+            return res.status(400).json({
+                error:"Comanda não existe!",
+            });
+        }
+
+        const pedidos = await ComandaProducts.findAll({
+            include: [
+                {model: Product, attributes: ["nm_produto", "valor"]},
+            ],
+            where: {id_comanda: comanda.id_comanda}
+        })
+        comanda.dataValues.pedidos = pedidos;
+        
+        res.json(comanda);
     }
 }
