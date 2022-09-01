@@ -201,7 +201,7 @@ module.exports = {
     updateProduct: async (req, res) => {
         let { id } = req.params;
         let { name, description, price, category } = req.body;
-        console.log(req.body);
+
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {

@@ -89,5 +89,36 @@ module.exports = {
         comanda.dataValues.pedidos = pedidos;
         
         res.json(comanda);
+    },
+
+    updateComanda: async (req, res) => {
+        let { id } = req.params;
+        let { remove, listProducts1, sit, price} = req.body;
+
+        for(const cont of listProducts1){
+            const addProducts = ComandaProducts.create({
+                id_comanda: id,
+                id_produto: cont.id_produto
+            })
+        }
+
+        for(const cont of remove){
+            const remover = ComandaProducts.destroy({
+                where: {id_comanda: id,
+                        id_produto: cont.id_produto}
+            })
+        }
+
+        const comandaUp = await Comanda.findOne({
+            where: {id_comanda: id}
+        })
+
+        comandaUp.price = price;
+        comandaUp.situacao = sit;
+        comandaUp.save();
+
+        return res.json(comandaUp);
     }
+
+
 }

@@ -23,7 +23,6 @@ router.post("/user/signin", AuthValidator.signin, AuthController.signin);
 // CREATE
 router.post(
     "/user/signup",
-    Auth.private,
     AuthValidator.signup,
     AuthController.signup
 );
@@ -147,6 +146,12 @@ router.get(
     "/comanda/:id",
     Auth.private,
     Comanda.getComanda
+)
+
+router.put(
+    "/comanda/update/:id",
+    Auth.private,
+    Comanda.updateComanda
 )
 
 module.exports = router;
