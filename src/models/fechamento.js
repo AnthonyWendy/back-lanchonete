@@ -4,10 +4,14 @@ const db = require("../db");
 const modelSchema = db.define(
     "Fechamento",
     {
-        id_comanda: {
+        id_fechamento: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrement: true,
+            autoIncrement: true,            
+        },
+        id_comanda: {
+            type: DataTypes.INTEGER,
+
             references: {
                 model: "Comanda",
                 key: "id_comanda",
@@ -15,8 +19,6 @@ const modelSchema = db.define(
         },
         idformapagamento: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
             references: {
                 model: "formaspagamento",
                 key: "idformapagamento",

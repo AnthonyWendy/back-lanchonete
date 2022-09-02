@@ -10,7 +10,17 @@ const modelSchema = db.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        id_user: {
+        id_user: {    getList: async (req, res) => {
+            const total = 0;
+    
+            const ingredientes = await Ingrediente.findAll({
+                order: [["nm_ingrediente", "asc"]],
+            });
+    
+            res.json({
+                ingredientes,
+            });
+        },
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {

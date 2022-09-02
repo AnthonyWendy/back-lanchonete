@@ -12,6 +12,7 @@ const CategoryController = require("./controllers/category.js");
 const IngredientController = require("./controllers/ingredientes.js");
 const FormasPagamentoController = require("./controllers/formaspagamento.js");
 const Comanda = require("./controllers/comanda.js");
+const Pagamento = require("./controllers/fechamento");
 
 router.get("/ping", (req, res) => {
     res.json({ pong: true });
@@ -152,6 +153,12 @@ router.put(
     "/comanda/update/:id",
     Auth.private,
     Comanda.updateComanda
+)
+
+router.post(
+    "/pagamento/:id",
+    Auth.private,
+    Pagamento.addPagamento
 )
 
 module.exports = router;
